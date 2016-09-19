@@ -31,6 +31,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="net.tullco.addressbookapp.startUp" />
         </activity>
+        <activity android:name=".AddressBook"></activity>
     </application>
 
 </manifest>
