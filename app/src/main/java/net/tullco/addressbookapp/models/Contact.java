@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Contact {
@@ -28,29 +29,59 @@ public class Contact {
 		this.phoneNumbers = new ArrayList<PhoneNumber>();
 		this.json=json;
 		if(json.has("first_name"))
-			this.firstName=json.getString("first_name");
+			try {
+				this.firstName=json.getString("first_name");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("middle_name"))
-			this.middleName=json.getString("middle_name");
+			try {
+				this.middleName=json.getString("middle_name");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("last_name"))
-			this.lastName=json.getString("last_name");
+			try {
+				this.lastName=json.getString("last_name");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("birthdate"))
 			try {
 				this.birthdate=df.parse(json.getString("birthdate"));
-			} catch (ParseException e) {}
+			} catch (ParseException e) {} catch(JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("nickname"))
-			this.nickname=json.getString("nickname");
-		if(json.has("id"))
-			this.id=json.getInt("id");
-		JSONArray addressesJson = json.getJSONArray("addresses");
-		for(Object o: addressesJson){
-			JSONObject addressJson = (JSONObject) o;
-			this.addresses.add(new Address(addressJson));
-		}
-		JSONArray phoneNumbersJson = json.getJSONArray("phone_numbers");
-		for(Object o: phoneNumbersJson){
-			JSONObject phoneNumberJson = (JSONObject) o;
-			this.phoneNumbers.add(new PhoneNumber(phoneNumberJson));
-		}
+            try {
+                this.nickname=json.getString("nickname");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        if(json.has("id"))
+            try {
+                this.id=json.getInt("id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        try {
+            JSONArray addressesJson = json.getJSONArray("addresses");
+            for (int i=0; i < addressesJson.length(); i++) {
+                JSONObject addressJson = addressesJson.getJSONObject(i);
+                this.addresses.add(new Address(addressJson));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            JSONArray phoneNumbersJson = json.getJSONArray("phone_numbers");
+            for (int i=0; i < phoneNumbersJson.length(); i++) {
+                JSONObject phoneNumberJson = phoneNumbersJson.getJSONObject(i);
+                this.phoneNumbers.add(new PhoneNumber(phoneNumberJson));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	public int getId() {

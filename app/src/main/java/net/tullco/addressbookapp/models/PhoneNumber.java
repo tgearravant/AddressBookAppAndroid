@@ -1,5 +1,6 @@
 package net.tullco.addressbookapp.models;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PhoneNumber {
@@ -12,13 +13,29 @@ public class PhoneNumber {
 	private JSONObject json;
 	public PhoneNumber(JSONObject json) {
 		if(json.has("id"))
-			this.id=json.getInt("id");
+			try {
+				this.id=json.getInt("id");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("number"))
-			this.number=json.getString("number");
+			try {
+				this.number=json.getString("number");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("country"))
-			this.country=json.getString("country");
+			try {
+				this.country=json.getString("country");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("preferred"))
-			this.preferred=json.getBoolean("preferred");
+			try {
+				this.preferred=json.getBoolean("preferred");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		this.json=json;
 	}
 	

@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isUsernameValid(String email) {
-        return !email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
@@ -248,7 +248,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String mUsername;
         private final String mPassword;
 
-        private final static String LOGIN_URL = "";
+        private final static String LOGIN_URL = "http://addressbook.tullco.net/api/auth/";
 
         UserLoginTask(String email, String password) {
             mUsername = email;
@@ -263,9 +263,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String postBody = "username="+ mUsername +"&password="+mPassword;
                 client.setRequestMethod("POST");
                 client.setDoOutput(true);
-                DataOutputStream outputPost = new DataOutputStream(client.getOutputStream());
-                client.setFixedLengthStreamingMode(outputPost.size());
                 client.setChunkedStreamingMode(0);
+                DataOutputStream outputPost = new DataOutputStream(client.getOutputStream());
                 outputPost.writeBytes(postBody);
                 outputPost.flush();
                 outputPost.close();
@@ -275,6 +274,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 while((line=reader.readLine())!=null){
                     response+=line;
                 }
+                System.out.println(response);
                 reader.close();
                 JSONObject json = new JSONObject(response);
                 if(!json.getString("api").equals("authentication"))
@@ -319,4 +319,3 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 }
-

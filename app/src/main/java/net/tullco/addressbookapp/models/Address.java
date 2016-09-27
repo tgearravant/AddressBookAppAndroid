@@ -1,5 +1,6 @@
 package net.tullco.addressbookapp.models;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Address {
@@ -16,21 +17,53 @@ public class Address {
 	
 	public Address(JSONObject json) {
 		if(json.has("id"))
-			this.id=json.getInt("id");
+			try {
+				this.id=json.getInt("id");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("street"))
-			this.street=json.getString("street");
+			try {
+				this.street=json.getString("street");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("apartment"))
-			this.apartment=json.getString("apartment");
+			try {
+				this.apartment=json.getString("apartment");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("city"))
-			this.city=json.getString("city");
+			try {
+				this.city=json.getString("city");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("state"))
-			this.state=json.getString("state");
+			try {
+				this.state=json.getString("state");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("country"))
-			this.country=json.getString("country");
+			try {
+				this.country=json.getString("country");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("active"))
-			this.active=json.getBoolean("active");
+			try {
+				this.active=json.getBoolean("active");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		if(json.has("zip_code"))
-			this.zipCode=json.getString("zip_code");
+			try {
+				this.zipCode=json.getString("zip_code");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		this.json=json;
 	}
 	
